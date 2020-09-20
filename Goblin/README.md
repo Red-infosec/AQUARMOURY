@@ -59,10 +59,8 @@ Key Takeaways:
 For a more elegant solution that allows filtering of events reported, see [@bats3c](https://twitter.com/_batsec_) work on [EvtMute](https://github.com/bats3c/EvtMute).
 
 ## Detection
-![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
-
 Here is a mandatory [CAPA](https://github.com/fireeye/capa) scan result on the `Goblin` DLL.
-
+![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
 
 ![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
 And here is an additional event reported as a result of "reviving" the EventLog service(System Event ID 7031)
