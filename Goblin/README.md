@@ -62,8 +62,8 @@ For a more elegant solution that allows filtering of events reported, see [@bats
 Here is a mandatory [CAPA](https://github.com/fireeye/capa) scan result on the `Goblin` DLL.
 ![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
 
-![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
 And here is an additional event reported as a result of "reviving" the EventLog service(System Event ID 7031)
+![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
 
 Note that by killing the EventLog service threads, **NO** additional events show up in the Event Logs whatsoever. Detection from event logs is possible iff operator has restarted the service.
 
