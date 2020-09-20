@@ -4,7 +4,7 @@
 ## Summary
 `Goblin` is a module to enumerate all the threads of the EventLog Service Module(`wevtsvc.dll`) and kill them in an effort to disable EventLog service from registering any new events. Disabling Windows Event Logging and Sysmon logging paves the way for operators to perform Post-Exploitation activities in a safe and stealthy manner.
 
-![wevtsvc.dll Threads](Screenshots/evtlog-threads.png "wevtsvc.dll Threads")
+![wevtsvc.dll Threads](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/evtlog-threads.PNG "wevtsvc.dll Threads")
 
 Additionally, it also allows us to "revive" the EventLog service again after we are done with Post-Ex activities.
 
