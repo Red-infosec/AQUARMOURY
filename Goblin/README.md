@@ -42,7 +42,7 @@ Refer to [1](https://twitter.com/inzlain/status/867172350457925632/photo/1) and 
 
 Enter Goblin.
 
-![Goblin Overview](Screenshots/overview.png "Goblin Overview")
+![Goblin Overview](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/overview.PNG "Goblin Overview")
 
 The first `notepad.exe` was started before running `Goblin` module on host and hence reported. The second one was launched after killing the EventLog service module threads and as expected the process creation event(Sysmon Event ID 1) never showed up in Sysmon logs. Note the time difference underlined in red, operators were successfuly able to conduct Post-Ex activities during this time without any of it showing up in Event Logs or being forwarded to SOC/SIEM.
 
@@ -59,10 +59,10 @@ Key Takeaways:
 For a more elegant solution that allows filtering of events reported, see [@bats3c](https://twitter.com/_batsec_) work on [EvtMute](https://github.com/bats3c/EvtMute).
 
 ## Detection
-![CAPA Scan](Screenshots/capa.png "CAPA Scan")
+![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
 Here is a mandatory [CAPA](https://github.com/fireeye/capa) scan result on the `Goblin` DLL.
 
-![Detection](Screenshots/detection.png "Detection")
+![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
 And here is an additional event reported as a result of "reviving" the EventLog service(System Event ID 7031)
 
 Note that by killing the EventLog service threads, **NO** additional events show up in the Event Logs whatsoever. Detection from event logs is possible iff operator has restarted the service.
