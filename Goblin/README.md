@@ -60,7 +60,6 @@ For a more elegant solution that allows filtering of events reported, see [@bats
 
 ## Detection
 ![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
-
 Here is a mandatory [CAPA](https://github.com/fireeye/capa) scan result on the `Goblin` DLL.
 
 ![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
