@@ -72,7 +72,7 @@ Sometimes there also appears to be a `System` log indicating `EventLog` service 
 
 Note that by killing the `EventLog` service threads, **NO** additional events show up in the event logs whatsoever. Detection from event logs is possible iff operator has restarted the service.
 
-Another point to note is that enabling `EnableSvchostMitigationPolicy` enables ACG and CIG of `svchost.exe` which in turn makes running `EvtMute` non-trivial but would have no effect on this technique since it is not reliant on process injection and trampolines.
+Another point to note is that enabling `EnableSvchostMitigationPolicy` enables `ACG` and `CIG` of `svchost.exe` which in turn makes running `EvtMute` non-trivial but would have no effect on this technique since it is not reliant on process injection and trampolines.
 ![svchost.exe Mitigation](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/svchost-mitigation.PNG "svchost.exe Mitigation")
 
 ## Credits
