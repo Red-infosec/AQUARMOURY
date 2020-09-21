@@ -6,13 +6,13 @@
 
 ![wevtsvc.dll Threads](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/evtlog-threads.PNG "wevtsvc.dll Threads")
 
-Additionally, it also allows us to "revive" the `EventLog` service again after we are done with Post-Ex activities.
+Additionally, it also allows us to "revive" the `EventLog` service again without requiring a reboot after we are done with Post-Ex activities.
 
 This tool was created to aid red team operators/penetration testers and to learn the inner workings of Windows Event Logging.
 
 ## Usage
 ### Using the pre-built binary
-Grab it from the `Releases` section.
+Grab the latest version from [here](https://github.com/slaeryan/AQUARMOURY/releases).
 ### Compiling yourself
 Make sure you have a working VC++ 2019 dev environment set up beforehand and `Git` installed. Execute the following from an x64 Developer Command Prompt.
 ```
@@ -21,7 +21,7 @@ Make sure you have a working VC++ 2019 dev environment set up beforehand and `Gi
 3. compile64.bat
 ```
 
-`goblin_x64.dll` is the name of the module. It is converted to a PIC blob(shellcode) with the help of [sRDI](https://github.com/monoxgas/sRDI) courtesy of [@monoxgas](https://twitter.com/monoxgas?lang=en) and delivered straight to memory via your favourite C2 framework for inline execution/local execution in the implant process.
+`goblin_x64.dll` is the name of the module and it is quite small(about `7 kB` in size). It is converted to a PIC blob(shellcode) with the help of [sRDI](https://github.com/monoxgas/sRDI) courtesy of [@monoxgas](https://twitter.com/monoxgas?lang=en) and delivered straight to memory via your favourite C2 framework for inline execution/local execution in the implant process.
 
 When the `Goblin` module is executed on a host, it primarily has one of these two objectives to accomplish:
 1. Kill `wevtsvc.dll` threads if they are running
@@ -46,7 +46,7 @@ Enter Goblin.
 
 ![Goblin Overview](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/overview.PNG "Goblin Overview")
 
-The first `notepad.exe` was started before running the `Goblin` module on the host and hence reported. The second one was launched after killing the `EventLog` service module threads and as expected the process creation event(Sysmon Event ID 1) never showed up in Sysmon logs. Note the time difference underlined in red, operators were successfully able to conduct Post-Ex activities during this time without any of it showing up in Event Logs or being forwarded to SOC/SIEM.
+The first `notepad.exe` was started before running the `Goblin` module on the host and hence reported. The second one was launched after killing the `EventLog` service module threads and as expected the `notepad.exe` process creation event(Sysmon Event ID 1) never showed up in Sysmon logs. Note the time difference underlined in red, operators were successfully able to conduct Post-Ex activities during this time without any of it reported by Sysmon or being forwarded to SOC/SIEM.
 
 After conducting Post-Exploitation we decided to enable logging again so as not to raise questions as to why a host has stopped reporting events altogether.
 
@@ -66,10 +66,14 @@ For a more elegant solution that allows filtering of events reported, see [@bats
 Here is a mandatory [CAPA](https://github.com/fireeye/capa) scan result of the `Goblin` DLL.
 ![CAPA Scan](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/capa.PNG "CAPA Scan")
 
-And here is an additional event reported as a result of "reviving" the `EventLog` service(System Event ID 7031)
+And here is an additional `System` event reported as a result of "reviving" the `EventLog` service(Event ID 7031)
 ![Detection](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/detection.PNG "Detection")
+Sometimes there also appears to be a `System` log indicating `EventLog` service has crashed(Event ID 7034).
 
 Note that by killing the `EventLog` service threads, **NO** additional events show up in the event logs whatsoever. Detection from event logs is possible iff operator has restarted the service.
+
+Another point to note is that enabling `EnableSvchostMitigationPolicy` enables ACG and CIG of `svchost.exe` which in turn makes running `EvtMute` non-trivial but would have no effect on this technique since it is not reliant on process injection and trampolines.
+![svchost.exe Mitigation](https://github.com/slaeryan/AQUARMOURY/blob/master/Goblin/Screenshots/svchost-mitigation.PNG "svchost.exe Mitigation)
 
 ## Credits
 1. This tool was inspired by [@spotheplanet](https://twitter.com/spotheplanet) lab on [Disabling Windows Event Logs by Suspending EventLog Service Threads](https://www.ired.team/offensive-security/defense-evasion/disabling-windows-event-logs-by-suspending-eventlog-service-threads). Although, suspending/resuming threads do not work in practice because all the events are going to be written to the event Logs once the threads are resumed, it is an excellent post that explains in great detail the process of finding `wevtsvc.dll` threads. The code and algorithm are hacked from the post and I'd highly recommend giving it a read.
@@ -77,6 +81,8 @@ Note that by killing the `EventLog` service threads, **NO** additional events sh
 3. [@dtm](https://twitter.com/0x00dtm) for first bringing this to my attention while discussing ways to evade Sysmon.
 4. As usual, [@reenz0h](https://twitter.com/Sektor7Net) and [RTO: MalDev course](https://institute.sektor7.net/red-team-operator-malware-development-essentials) for the templates that I keep using to this date.
 5. [@monoxgas](https://twitter.com/monoxgas?lang=en) for sRDI.
+6. [@SBousseaden](https://twitter.com/sbousseaden) for the detection methodologies.
+7. [@Nikhith_](https://twitter.com/Nikhith_) for taking the time to review the tool and the post.
 
 ## Author
 Upayan ([@slaeryan](https://twitter.com/slaeryan)) [[slaeryan.github.io](https://slaeryan.github.io)]
